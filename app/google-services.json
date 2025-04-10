@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "73262300728",
+    "project_id": "shopifyka-320a3",
+    "storage_bucket": "shopifyka-320a3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:73262300728:android:f4fbfc894f36e2dafbb0cd",
+        "android_client_info": {
+          "package_name": "com.example.proyectoshopifyka"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyZJMsX5DWXd7zZlyzplkTHYaLZroFPdw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
