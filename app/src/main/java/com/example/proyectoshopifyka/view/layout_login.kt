@@ -5,44 +5,71 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import com.example.proyectoshopifyka.databinding.FragmentLayoutLoginBinding
+import com.example.proyectoshopifyka.utils.FragmentComunicator
+import com.example.proyectoshopifyka.viewModel.SignInViewModel
+import androidx.navigation.fragment.findNavController
+import androidx.core.widget.addTextChangedListener
+import android.widget.Toast
+
 
 
 class layout_login : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
-    }
+    private var _binding: FragmentLayoutLoginBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel by viewModels<SignInViewModel>()
+    var isValid: Boolean = false
+    private lateinit var communicator: FragmentComunicator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_layout_login, container, false)
+    ): View {
+
+        _binding = FragmentLayoutLoginBinding.inflate(inflater, container, false)
+        //communicator = requireActivity() as OnboardingActivity
+        setupView()
+        //setupObservers()
+        return binding.root
+
     }
+    private fun setupView() {
+        binding.textView2.setOnClickListener {
+            findNavController().navigate(R.id.action_layout_login_to_layout_register)
+        }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment layout_login.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            layout_login().apply {
-                arguments = Bundle().apply {
 
-                }
+        binding.filledButton.setOnClickListener {
+            if (isValid) {
+                //requestLogin()
+            } else {
+                Toast.makeText(activity, "Ingreso invalido", Toast.LENGTH_SHORT).show()
             }
+        }
+
+
+
+        binding.etContrasenia.addTextChangedListener {
+            if (binding.etContrasenia.text.toString().isEmpty()) {
+                binding.tilCorreo.error = "Por favor introduce un correo"
+                isValid = false
+            } else {
+                isValid = true
+            }
+        }
+
+
+        binding.etCorreo.addTextChangedListener {
+            if (binding.etCorreo.text.toString().isEmpty()) {
+                binding.tilCorreo.error = "Por favor introduce una contraseña"
+                isValid = false
+            } else {
+                isValid = true
+            }
+        }
     }
+
+
 }

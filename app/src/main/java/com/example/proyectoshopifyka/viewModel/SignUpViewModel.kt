@@ -1,4 +1,6 @@
 package com.example.proyectoshopifyka.viewModel
 
-class SignUpViewModel {
+import androidx.lifecycle.ViewModel
+
+class SignUpViewModel: ViewModel() {
 }
