@@ -27,7 +27,7 @@ class SignInViewModel: ViewModel() {
             result.user?.let {
                 _sessionValid.value = true
             } ?: run {
-                Log.i("Firebase", "Ocurrio un problema")
+                Log.i("Firebase", "Se ha generado un problema")
             }
         }
     }

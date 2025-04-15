@@ -6,7 +6,7 @@
     app:startDestination="@id/layout_login">
     <fragment
         android:id="@+id/layout_login"
-        android:name="com.example.proyectoshopifyka.layout_login"
+        android:name="com.example.proyectoshopifyka.view.onboarding.layout_login"
         android:label="layout_login" >
         <action
             android:id="@+id/action_layout_login_to_layout_register"
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/layout_register"
-        android:name="com.example.proyectoshopifyka.layout_register"
+        android:name="com.example.proyectoshopifyka.view.onboarding.layout_register"
         android:label="layout_register" >
         <action
             android:id="@+id/action_layout_register_to_layout_login"
@@ -28,11 +28,11 @@
     </fragment>
     <fragment
         android:id="@+id/restorePassword"
-        android:name="com.example.proyectoshopifyka.restorePassword"
+        android:name="com.example.proyectoshopifyka.view.onboarding.restorePassword"
         android:label="restorePassword" />
     <fragment
         android:id="@+id/secondFragment"
-        android:name="com.example.proyectoshopifyka.SecondFragment"
+        android:name="com.example.proyectoshopifyka.view.onboarding.SecondFragment"
         android:label="fragment_second"
         tools:layout="@layout/fragment_second" >
         <action
@@ -41,6 +41,6 @@
     </fragment>
     <fragment
         android:id="@+id/firstFragment2"
-        android:name="com.example.proyectoshopifyka.FirstFragment"
+        android:name="com.example.proyectoshopifyka.view.home.FirstFragment"
         android:label="FirstFragment" />
 </navigation>

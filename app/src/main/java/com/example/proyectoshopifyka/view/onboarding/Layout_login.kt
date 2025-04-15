@@ -1,6 +1,8 @@
-package com.example.proyectoshopifyka
+package com.example.proyectoshopifyka.view.onboarding
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +14,8 @@ import com.example.proyectoshopifyka.viewModel.SignInViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.core.widget.addTextChangedListener
 import android.widget.Toast
-
+import com.example.proyectoshopifyka.R
+import com.example.proyectoshopifyka.view.home.HomeActivity
 
 
 class layout_login : Fragment() {
@@ -29,27 +32,38 @@ class layout_login : Fragment() {
     ): View {
 
         _binding = FragmentLayoutLoginBinding.inflate(inflater, container, false)
+
         //communicator = requireActivity() as OnboardingActivity
+
+        if (requireActivity() is FragmentComunicator) {
+            communicator = requireActivity() as FragmentComunicator
+        } else {
+            throw IllegalStateException("La actividad que hospeda este fragmento debe implementar FragmentComunicator")
+        }
+
         setupView()
-        //setupObservers()
+        setupObservers()
         return binding.root
 
     }
+
     private fun setupView() {
+        //actions
         binding.textView2.setOnClickListener {
             findNavController().navigate(R.id.action_layout_login_to_layout_register)
         }
+        binding.textView.setOnClickListener {
+            findNavController().navigate(R.id.action_layout_login_to_restorePassword)
+        }
 
-
+        //Validations information user
         binding.filledButton.setOnClickListener {
             if (isValid) {
-                //requestLogin()
+                requestLogin()
             } else {
                 Toast.makeText(activity, "Ingreso invalido", Toast.LENGTH_SHORT).show()
             }
         }
-
-
 
         binding.etContrasenia.addTextChangedListener {
             if (binding.etContrasenia.text.toString().isEmpty()) {
@@ -59,7 +73,6 @@ class layout_login : Fragment() {
                 isValid = true
             }
         }
-
 
         binding.etCorreo.addTextChangedListener {
             if (binding.etCorreo.text.toString().isEmpty()) {
@@ -71,5 +84,23 @@ class layout_login : Fragment() {
         }
     }
 
+    private fun setupObservers() {
+        viewModel.loaderState.observe(viewLifecycleOwner) { loaderState ->
+            communicator.showLoader(loaderState)
+        }
+        viewModel.sessionValid.observe(viewLifecycleOwner) { validSession ->
+            if (validSession) {
+                val intent = Intent(activity, HomeActivity::class.java)
+                startActivity(intent)
+                activity?.finish()
+            } else {
+                Toast.makeText(activity, "Ingreso invalido", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
+    private fun requestLogin() {
+        viewModel.requestSignIn(binding.etCorreo.text.toString(),
+            binding.etContrasenia.text.toString())
+    }
 }
