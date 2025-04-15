@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.proyectoshopifyka.R
+import com.example.proyectoshopifyka.databinding.FragmentLayoutRegisterBinding
+import com.example.proyectoshopifyka.databinding.FragmentRestorePasswordBinding
 
 class restorePassword : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private var _binding: FragmentRestorePasswordBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,26 +26,20 @@ class restorePassword : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_restore_password, container, false)
+        _binding = FragmentRestorePasswordBinding.inflate(inflater, container, false)
+        setupView()
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment restorePassword.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            restorePassword().apply {
-                arguments = Bundle().apply {
+    private fun setupView() {
 
-                }
-            }
+        binding.imageButton.setOnClickListener {
+            findNavController().navigate(R.id.action_restorePassword_to_layout_login)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

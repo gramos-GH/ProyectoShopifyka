@@ -35,14 +35,11 @@ class SecondFragment : Fragment() {
 
     private fun setupView() {
         //actions
-        binding.btnBoton.setOnClickListener {
-            findNavController().navigate(R.id.action_secondFragment_to_firstFragment2)
-        }
-
         //Validations information user
         binding.btnBoton.setOnClickListener {
             if (isValid) {
                 //requestUserData()
+                findNavController().navigate(R.id.action_secondFragment_to_firstFragment2)
             } else {
                 Toast.makeText(activity, "Registro invalido", Toast.LENGTH_SHORT).show()
             }

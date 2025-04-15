@@ -15,38 +15,90 @@ import com.example.proyectoshopifyka.databinding.FragmentLayoutRegisterBinding
 import com.example.proyectoshopifyka.utils.FragmentComunicator
 import com.example.proyectoshopifyka.view.home.HomeActivity
 import com.example.proyectoshopifyka.viewModel.SignUpViewModel
+import android.util.Log
+import android.util.Patterns
+import androidx.lifecycle.ViewModel
 
 class layout_register : Fragment() {
     // TODO: Rename and change types of parameters
     private var _binding: FragmentLayoutRegisterBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<SignUpViewModel>()
+    var isValid: Boolean = false
     private lateinit var communicator: FragmentComunicator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentLayoutRegisterBinding.inflate(inflater, container, false)
-        communicator = requireActivity() as OnboardingActivity
-        setupView()
-        return binding.root
 
+        val activity = requireActivity()
+        Log.d("layout_register", "La actividad es: ${activity::class.java.simpleName}")
+
+        if (activity is HomeActivity) {
+            communicator = activity
+            setupObservers()
+            setupView()
+        } else {
+            Toast.makeText(context, "La actividad no es la correcta", Toast.LENGTH_SHORT).show()
+        }
+        return binding.root
     }
 
     private fun setupView() {
-        binding.filledButton.setOnClickListener {
-            viewModel.requestSignUp(binding.etCorreo.text.toString(),
-                binding.etContrasenia.text.toString())
+        binding.etCorreo.addTextChangedListener {
+            isValid = validateInputs()
         }
-        setupObservers()
+
+        binding.etContrasenia.addTextChangedListener {
+            isValid = validateInputs()
+        }
+
+        binding.filledButton.setOnClickListener {
+            if (isValid) {
+                requestsignup()
+            } else {
+                Toast.makeText(activity, "Registro inválido", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.iconButton.setOnClickListener {
+            findNavController().navigate(R.id.action_layout_register_to_layout_login)
+        }
     }
+
+
 
     private fun setupObservers() {
         viewModel.loaderState.observe(viewLifecycleOwner) { loaderState ->
             communicator.showLoader(loaderState)
         }
+
+        viewModel.registrationSuccess.observe(viewLifecycleOwner) { success ->
+            Log.d("layout_register", "Estado de registro exitoso")
+            if (success) {
+                findNavController().navigate(R.id.action_layout_register_to_secondFragment)
+            } else {
+                Toast.makeText(activity, "Error en el registro, intente nuevamente", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+
+    private fun validateInputs(): Boolean {
+        val emailValid = binding.etCorreo.text?.toString()?.let { Patterns.EMAIL_ADDRESS.matcher(binding.etCorreo.text.toString()).matches() } ?: false
+        val passwordValid = !binding.etContrasenia.text.isNullOrEmpty()
+
+        return emailValid && passwordValid
+    }
+
+    private fun requestsignup() {
+        viewModel.requestSignUp(
+            binding.etCorreo.text.toString(),
+            binding.etContrasenia.text.toString()
+        )
     }
 
     override fun onDestroyView() {

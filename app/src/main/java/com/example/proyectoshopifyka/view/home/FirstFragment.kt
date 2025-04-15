@@ -19,8 +19,6 @@ import com.example.proyectoshopifyka.databinding.FragmentLayoutRegisterBinding
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -29,9 +27,6 @@ class FirstFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
-        //communicator = requireActivity() as OnboardingActivity
-        //setupView()
-        //setupObservers()
         return binding.root
     }
 

@@ -1,4 +1,5 @@
 package com.example.proyectoshopifyka.viewModel
+
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,7 +18,7 @@ class SignInViewModel: ViewModel() {
     private val _sessionValid = MutableLiveData<Boolean>()
     val sessionValid: LiveData<Boolean>
         get() = _sessionValid
-    private val firebase = FirebaseAuth.getInstance()
+    private val firebase by lazy { FirebaseAuth.getInstance() }
 
     fun requestSignIn(email: String, password: String) {
         _loaderState.value = true

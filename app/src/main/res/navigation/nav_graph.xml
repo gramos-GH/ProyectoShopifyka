@@ -29,7 +29,11 @@
     <fragment
         android:id="@+id/restorePassword"
         android:name="com.example.proyectoshopifyka.view.onboarding.restorePassword"
-        android:label="restorePassword" />
+        android:label="restorePassword" >
+        <action
+            android:id="@+id/action_restorePassword_to_layout_login"
+            app:destination="@id/layout_login" />
+    </fragment>
     <fragment
         android:id="@+id/secondFragment"
         android:name="com.example.proyectoshopifyka.view.onboarding.SecondFragment"

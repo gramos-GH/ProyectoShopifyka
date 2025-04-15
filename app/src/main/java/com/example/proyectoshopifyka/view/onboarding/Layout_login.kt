@@ -33,8 +33,6 @@ class layout_login : Fragment() {
 
         _binding = FragmentLayoutLoginBinding.inflate(inflater, container, false)
 
-        //communicator = requireActivity() as OnboardingActivity
-
         if (requireActivity() is FragmentComunicator) {
             communicator = requireActivity() as FragmentComunicator
         } else {

@@ -22,10 +22,13 @@ class OnboardingActivity : AppCompatActivity(), FragmentComunicator {
 
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
     }
 
     override fun showLoader(value: Boolean) {
         binding.loaderContainerView.visibility = if (value) View.VISIBLE else View.GONE
+    }
+
+    override fun enviarMensaje(mensaje: String) {
+
     }
 }
