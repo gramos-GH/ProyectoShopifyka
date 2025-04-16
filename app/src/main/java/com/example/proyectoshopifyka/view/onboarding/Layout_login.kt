@@ -65,7 +65,7 @@ class layout_login : Fragment() {
 
         binding.etContrasenia.addTextChangedListener {
             if (binding.etContrasenia.text.toString().isEmpty()) {
-                binding.tilCorreo.error = "Por favor introduce un correo"
+                binding.tilContrasenia.error = "Por favor introduce un correo "
                 isValid = false
             } else {
                 isValid = true

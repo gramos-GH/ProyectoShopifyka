@@ -83,9 +83,24 @@ class layout_register : Fragment() {
                 Toast.makeText(activity, "Error en el registro, intente nuevamente", Toast.LENGTH_SHORT).show()
             }
         }
+        binding.etContrasenia.addTextChangedListener {
+            if (binding.etContrasenia.text.toString().isEmpty()) {
+                binding.tilContrasenia.error = "Por favor introduce una contraseña"
+                isValid = false
+            } else {
+                isValid = true
+            }
+        }
+
+        binding.etCorreo.addTextChangedListener {
+            if (binding.etCorreo.text.toString().isEmpty()) {
+                binding.tilCorreo.error = "Por favor introduce un correo"
+                isValid = false
+            } else {
+                isValid = true
+            }
+        }
     }
-
-
 
     private fun validateInputs(): Boolean {
         val emailValid = binding.etCorreo.text?.toString()?.let { Patterns.EMAIL_ADDRESS.matcher(binding.etCorreo.text.toString()).matches() } ?: false

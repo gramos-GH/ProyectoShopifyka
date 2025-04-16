@@ -38,7 +38,6 @@ class SecondFragment : Fragment() {
         //Validations information user
         binding.btnBoton.setOnClickListener {
             if (isValid) {
-                //requestUserData()
                 findNavController().navigate(R.id.action_secondFragment_to_firstFragment2)
             } else {
                 Toast.makeText(activity, "Registro invalido", Toast.LENGTH_SHORT).show()
@@ -65,16 +64,7 @@ class SecondFragment : Fragment() {
 
         binding.etUsuario.addTextChangedListener {
             if (binding.etUsuario.text.toString().isEmpty()) {
-                binding.tilUsuario.error = "Por favor introduce una contraseña"
-                isValid = false
-            } else {
-                isValid = true
-            }
-        }
-
-        binding.etApellidos.addTextChangedListener {
-            if (binding.etApellidos.text.toString().isEmpty()) {
-                binding.tilApellidos.error = "Por favor introduce un nombre de usuario"
+                binding.tilUsuario.error = "Por favor introduce un usuario"
                 isValid = false
             } else {
                 isValid = true
@@ -83,7 +73,7 @@ class SecondFragment : Fragment() {
 
         binding.etFecha.addTextChangedListener {
             if (binding.etFecha.text.toString().isEmpty()) {
-                binding.tilFecha.error = "Por favor introduce una contraseña"
+                binding.tilFecha.error = "Por favor introduce una fecha"
                 isValid = false
             } else {
                 isValid = true
