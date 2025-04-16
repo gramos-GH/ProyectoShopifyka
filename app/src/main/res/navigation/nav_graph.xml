@@ -3,26 +3,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
-
+    app:startDestination="@id/layout_login">
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.proyectoshopifyka.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
+        android:id="@+id/layout_login"
+        android:name="com.example.proyectoshopifyka.view.onboarding.layout_login"
+        android:label="layout_login" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_layout_login_to_layout_register"
+            app:destination="@id/layout_register" />
+        <action
+            android:id="@+id/action_layout_login_to_restorePassword"
+            app:destination="@id/restorePassword" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.proyectoshopifyka.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
+        android:id="@+id/layout_register"
+        android:name="com.example.proyectoshopifyka.view.onboarding.layout_register"
+        android:label="layout_register" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_layout_register_to_layout_login"
+            app:destination="@id/layout_login" />
+        <action
+            android:id="@+id/action_layout_register_to_secondFragment"
+            app:destination="@id/secondFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/restorePassword"
+        android:name="com.example.proyectoshopifyka.view.onboarding.restorePassword"
+        android:label="restorePassword" >
+        <action
+            android:id="@+id/action_restorePassword_to_layout_login"
+            app:destination="@id/layout_login" />
+    </fragment>
+    <fragment
+        android:id="@+id/secondFragment"
+        android:name="com.example.proyectoshopifyka.view.onboarding.SecondFragment"
+        android:label="fragment_second"
+        tools:layout="@layout/fragment_second" >
+        <action
+            android:id="@+id/action_secondFragment_to_firstFragment2"
+            app:destination="@id/firstFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/firstFragment2"
+        android:name="com.example.proyectoshopifyka.view.home.FirstFragment"
+        android:label="FirstFragment" />
 </navigation>

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".view.home.HomeActivity">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -21,10 +21,10 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnContinue"
-        android:layout_width="390dp"
-        android:layout_height="59dp"
-        android:backgroundTint="@color/rosaPastel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Continuar"
+        android:backgroundTint="@color/rosaPastel"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         app:cornerRadius="16dp"
@@ -37,6 +37,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@id/imageView3"
+        app:layout_constraintVertical_bias="0.8"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,12 +1,13 @@
-package com.example.proyectoshopifyka
+package com.example.proyectoshopifyka.view.onboarding
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.proyectoshopifyka.R
 
-class restorePassword : Fragment() {
+class LayoutLoad : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -23,7 +24,7 @@ class restorePassword : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_restore_password, container, false)
+        return inflater.inflate(R.layout.fragment_layout_load, container, false)
     }
 
     companion object {
@@ -33,12 +34,12 @@ class restorePassword : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment restorePassword.
+         * @return A new instance of fragment LayoutLoad.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            restorePassword().apply {
+            LayoutLoad().apply {
                 arguments = Bundle().apply {
 
                 }
