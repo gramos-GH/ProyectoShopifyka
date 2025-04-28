@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.proyectoshopifyka"
+    namespace = "com.example.proyectoShopifyka"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.proyectoshopifyka"
+        applicationId = "com.example.proyectoShopifyka"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
