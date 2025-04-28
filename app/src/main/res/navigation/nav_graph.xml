@@ -45,6 +45,6 @@
     </fragment>
     <fragment
         android:id="@+id/firstFragment2"
-        android:name="com.example.proyectoshopifyka.view.home.FirstFragment"
+        android:name="com.example.proyectoshopifyka.view.home.WeatherFragment"
         android:label="FirstFragment" />
 </navigation>
