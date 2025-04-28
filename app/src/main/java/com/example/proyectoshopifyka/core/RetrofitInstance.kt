@@ -6,8 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object RetrofitInstance {
-
-    fun Retrofit(): Retrofit {
+    fun getRetrofit(): Retrofit {
         val httpClient = OkHttpClient.Builder()
             .connectTimeout( 30, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
