@@ -5,23 +5,37 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.proyectoshopifyka.databinding.FragmentFirstBinding
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.example.proyectoshopifyka.databinding.FragmentWeatherBinding
+import com.example.proyectoshopifyka.viewModel.WeatherFragmentViewModel
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
 class WeatherFragment : Fragment() {
 
-    private var _binding: FragmentFirstBinding? = null
+    private var _binding: FragmentWeatherBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: WeatherFragmentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        _binding = FragmentFirstBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentWeatherBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Observador del clima
+        viewModel.weatherData.observe(viewLifecycleOwner, Observer { weather ->
+            binding.textViewWeather.text =
+                "En ${weather.location.name}, la temperatura es ${weather.current.temp_c} °C"
+        })
+
+        // Llama a la API para obtener el clima
+        viewModel.fetchWeather("b01d6b51a0bf40c282f15334252104", "Mexico City")
     }
 
     override fun onDestroyView() {
