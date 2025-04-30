@@ -10,8 +10,7 @@ interface RealtimeAPI {
     @GET("current.json")
     suspend fun getWeatherInfo(
         @Query("key") apiKey: String,
-        @Query("q") location: String,
-        @Query("aqi") aqi: String = "no"
+        @Query("q") coordinates: String
     ): Response<Weather>
 
 }
