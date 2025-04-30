@@ -5,20 +5,215 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/linearMenuIcon"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/menu_points_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textViewWeather"
+        android:id="@+id/textCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cargando clima..."
-        android:textSize="18sp"
-        android:layout_marginTop="32dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:textAlignment="center"
+        android:layout_marginTop="64dp"
+        android:text="Ciudad"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Dia,Hora"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/textCity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageWeatherIcon"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="32dp"
+        android:contentDescription="IconoClima"
+        app:layout_constraintTop_toBottomOf="@id/textTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Temp"
+        android:textColor="@color/black"
+        android:textSize="36sp"
+        app:layout_constraintTop_toBottomOf="@id/imageWeatherIcon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textGreeting"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:text="Saludo"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/textTemperature"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/linearIcon"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="32dp"
+        android:contentDescription="Icono clima"
+        android:src="@drawable/baseline_minimize_24"
+        app:layout_constraintTop_toBottomOf="@id/textGreeting"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/dayIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginBottom="4dp"
+        android:src="@drawable/baseline_wb_sunny_24"
+        app:layout_constraintBottom_toTopOf="@id/textSunset2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.129"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textSunset2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="116dp"
+        android:text="SUNSET"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearIcon" />
+
+    <TextView
+        android:id="@+id/textSunset1"
+        android:layout_width="21dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginBottom="32dp"
+        android:text="7:00"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textSunset2"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/linearIcon1"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/menu_points_24"
+        app:layout_constraintStart_toStartOf="@id/textSunset1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.231" />
+
+    <TextView
+        android:id="@+id/textwind1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:text="WIND"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@id/textMaxTemp2"
+        app:layout_constraintStart_toEndOf="@id/textSunset2"
+        app:layout_constraintBottom_toTopOf="@id/textWind2"/>
+
+    <ImageView
+        android:id="@+id/windIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/baseline_water_24"
+        app:layout_constraintBottom_toTopOf="@id/textwind1"
+        app:layout_constraintEnd_toStartOf="@id/textMaxTemp2" />
+
+    <TextView
+        android:id="@+id/textWind2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="24dp"
+        android:text="4 m/s"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/linearIcon1" />
+
+    <ImageView
+        android:id="@+id/linearIcon2"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="128dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/menu_points_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/textwind1"
+        app:layout_constraintstart_toEndOf="@id/textWind2" />
+
+    <ImageView
+        android:id="@+id/temIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="32dp"
+        android:src="@drawable/baseline_thermostat_24"
+        app:layout_constraintBottom_toTopOf="@id/textMaxTemp1"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textMaxTemp1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:text="23°"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/textWind2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.727" />
+
+    <TextView
+        android:id="@+id/textMaxTemp2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginEnd="16dp"
+        android:text="TEMPERATURE"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/textWind2"
+        app:layout_constraintBottom_toTopOf="@id/textMaxTemp1"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.example.proyectoshopifyka.databinding.FragmentWeatherBinding
+import com.example.proyectoShopifyka.databinding.FragmentWeatherBinding
 import com.example.proyectoshopifyka.viewModel.WeatherFragmentViewModel
 
 class WeatherFragment : Fragment() {
@@ -35,7 +35,7 @@ class WeatherFragment : Fragment() {
         })
 
         // Llama a la API para obtener el clima
-        viewModel.fetchWeather("b01d6b51a0bf40c282f15334252104", "Mexico City")
+        viewModel.fetchWeather("b01d6b51a0bf40c282f15334252104", " 19° 24' N")
     }
 
     override fun onDestroyView() {

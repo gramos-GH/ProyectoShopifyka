@@ -12,7 +12,7 @@ object RetrofitInstance {
             .readTimeout(60, TimeUnit.SECONDS)
             .build()
         return Retrofit.Builder()
-            .baseUrl("https://www.weatherapi.com/")
+            .baseUrl("http://api.weatherapi.com/v1")
             .client(httpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
