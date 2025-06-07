@@ -38,7 +38,7 @@ class SecondFragment : Fragment() {
         //Validations information user
         binding.btnBoton.setOnClickListener {
             if (isValid) {
-                findNavController().navigate(R.id.action_secondFragment_to_firstFragment2)
+                findNavController().navigate(R.id.action_secondFragment_to_layout_login)
             } else {
                 Toast.makeText(activity, "Registro invalido", Toast.LENGTH_SHORT).show()
             }

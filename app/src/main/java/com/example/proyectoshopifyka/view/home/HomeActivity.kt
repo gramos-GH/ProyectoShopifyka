@@ -11,8 +11,9 @@ import com.example.proyectoshopifyka.R
 import com.example.proyectoshopifyka.databinding.ActivityHomeBinding
 import com.example.proyectoshopifyka.utils.FragmentComunicator
 import com.google.firebase.FirebaseApp
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity(), FragmentComunicator {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -27,7 +28,9 @@ class HomeActivity : AppCompatActivity(), FragmentComunicator {
     }
 
     override fun showLoader(value: Boolean) {
-        binding.loaderContainerView.visibility = if (value) View.VISIBLE else View.GONE
+        binding.loaderContainerView?.let {
+            it.visibility = if (value) View.VISIBLE else View.GONE
+        }
     }
 
     override fun enviarMensaje(mensaje: String) {
