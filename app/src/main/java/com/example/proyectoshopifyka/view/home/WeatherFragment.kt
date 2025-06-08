@@ -47,7 +47,7 @@ class WeatherFragment : Fragment() {
         }
 
         // Llama a la API obteniendo la ubicación actual
-        viewModel.fetchWeather("key")
+        viewModel.fetchWeather("b01d6b51a0bf40c282f15334252104")
 
     }
 
