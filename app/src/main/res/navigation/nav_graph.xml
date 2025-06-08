@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_layout_login_to_restorePassword"
             app:destination="@id/restorePassword" />
+        <action
+            android:id="@+id/action_layout_login_to_weatherFragment"
+            app:destination="@id/navigation_home" />
     </fragment>
     <fragment
         android:id="@+id/layout_register"
@@ -40,11 +43,34 @@
         android:label="fragment_second"
         tools:layout="@layout/fragment_second" >
         <action
-            android:id="@+id/action_secondFragment_to_firstFragment2"
-            app:destination="@id/firstFragment2" />
+            android:id="@+id/action_secondFragment_to_layout_login"
+            app:destination="@id/layout_login" />
     </fragment>
     <fragment
-        android:id="@+id/firstFragment2"
+        android:id="@+id/navigation_home"
         android:name="com.example.proyectoshopifyka.view.home.WeatherFragment"
-        android:label="FirstFragment" />
+        android:label="@string/home_fragment" >
+        <action
+            android:id="@+id/action_weatherFragment_to_forecastFragment"
+            app:destination="@id/forecastFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forecastFragment"
+        android:name="com.example.proyectoshopifyka.view.home.viewModel.ForecastFragment"
+        android:label="@string/forecast_fragment"
+        tools:layout="@layout/fragment_forecast" >
+        <action
+            android:id="@+id/action_forecastFragment_to_weatherFragment"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.proyectoshopifyka.view.home.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.proyectoshopifyka.view.home.ProfileFragment"
+        android:label="@string/profile_fragment"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

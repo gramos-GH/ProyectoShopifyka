@@ -6,16 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import com.example.proyectoShopifyka.databinding.FragmentWeatherBinding
-import com.example.proyectoshopifyka.viewModel.WeatherFragmentViewModel
+import com.bumptech.glide.Glide
+import com.example.proyectoshopifyka.databinding.FragmentWeatherBinding
+import com.example.proyectoshopifyka.view.home.viewModel.WeatherFragmentViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WeatherFragment : Fragment() {
+
+    private val viewModel: WeatherFragmentViewModel by viewModels() // ✅ Corrección
 
     private var _binding: FragmentWeatherBinding? = null
     private val binding get() = _binding!!
-
-    private val viewModel: WeatherFragmentViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,13 +31,24 @@ class WeatherFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Observador del clima
-        viewModel.weatherData.observe(viewLifecycleOwner, Observer { weather ->
-            binding.textViewWeather.text =
-                "En ${weather.location.name}, la temperatura es ${weather.current.temp_c} °C"
-        })
+        viewModel.weatherInfo.observe(viewLifecycleOwner) { weather ->
+            //binding.textCiudad.text = weather.
+            binding.textSemana.text = "${weather.lastupdated}"
+            binding.textTemp.text = "${weather.tempc} °C"
+            //binding.textSaludo.text = "${weather.}"
+            //binding.textNumSunset.text = weather.lastupdated
+            binding.textNumWind.text =  "${weather.windkph} km/h"
+            binding.textNumTemperatura.text = "${weather.feelslikec}°C"
 
-        // Llama a la API para obtener el clima
-        viewModel.fetchWeather("b01d6b51a0bf40c282f15334252104", " 19° 24' N")
+            Glide.with(this)
+                .load("https:${weather.condition.icon}")
+                .into(binding.imgClima)
+
+        }
+
+        // Llama a la API obteniendo la ubicación actual
+        viewModel.fetchWeather("b01d6b51a0bf40c282f15334252104")
+
     }
 
     override fun onDestroyView() {
