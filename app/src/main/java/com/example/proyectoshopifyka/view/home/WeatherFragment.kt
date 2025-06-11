@@ -27,14 +27,20 @@ class WeatherFragment : Fragment() {
         return binding.root
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // Observador del clima
         viewModel.weatherInfo.observe(viewLifecycleOwner) { weather ->
+            binding.textCiudad.text = weather.location.name
+
+
+
             binding.textTemp.text = "${weather.current.tempC} °C"
-            //binding.textSaludo.text = "${weather.}"
-            //binding.textNumSunset.text = weather.lastupdated
+            binding.textSaludo.text = weather.current.condition.text
+
             binding.textNumWind.text =  "${weather.current.windKph} km/h"
             binding.textNumTemperatura.text = "${weather.current.feelsLikeC}°C"
 

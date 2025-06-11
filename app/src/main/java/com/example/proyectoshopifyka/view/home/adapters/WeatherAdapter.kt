@@ -25,6 +25,7 @@ class WeatherAdapter (
             val binding = FragmentWeatherItemBinding.bind(view)
 
             fun setUpUI(weather: WeatherResponse) {
+
                 binding.weatherCentiTextView.text = "${weather.current.tempC}°C"
                 binding.weatherNumTextView.text = "${weather.current.feelsLikeC}°C"
 

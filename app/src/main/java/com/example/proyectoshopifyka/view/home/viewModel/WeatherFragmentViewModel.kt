@@ -10,6 +10,7 @@ import com.example.proyectoshopifyka.model.WeatherResponse
 import com.example.proyectoshopifyka.network.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,6 +27,7 @@ class WeatherFragmentViewModel @Inject constructor(
 
     private val _weatherInfo = MutableLiveData<WeatherResponse>()
     val weatherInfo: LiveData<WeatherResponse> get() = _weatherInfo
+
 
     fun fetchWeather(apiKey: String) {
         _loaderState.value = true

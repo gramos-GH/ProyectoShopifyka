@@ -13,6 +13,9 @@ import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(
     private val realTimeAPI: RealtimeAPI
+
+
+
 ) {
     suspend fun getWeatherInfo(apiKey: String, location: String): ResultWrapper<WeatherResponse> = safeCall {
         val response = realTimeAPI.getWeatherInfo(apiKey, location)
