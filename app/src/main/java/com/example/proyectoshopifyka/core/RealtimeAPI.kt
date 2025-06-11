@@ -20,7 +20,7 @@ interface RealtimeAPI {
     suspend fun getForecastInfo(
         @Query("key") apiKey: String,
         @Query("q") location: String,
-        @Query("days") days: Int = 7 // <- 7 días de pronóstico
+        @Query("days") days: Int = 7
     ): Response<ForecastResponse>
 
 }

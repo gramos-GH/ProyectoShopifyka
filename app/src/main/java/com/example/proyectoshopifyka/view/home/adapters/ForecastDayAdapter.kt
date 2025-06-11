@@ -21,13 +21,13 @@ class ForecastDayAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(day: ForecastDay) {
-            // Convertir la fecha a nombre del día
+            // Convertir fecha a dia >:(
             binding.textDate.text = getDayOfWeek(day.date)
             binding.textMaxTemp.text = "Max: ${day.day.maxtempC}°C"
             binding.textMinTemp.text = "Min: ${day.day.mintempC}°C"
 
             Glide.with(binding.root)
-                .load("${day.day.condition.icon}")
+                .load("https:${day.day.condition.icon}")
                 .placeholder(android.R.drawable.ic_menu_report_image)
                 .into(binding.imageWeatherIcon)
         }

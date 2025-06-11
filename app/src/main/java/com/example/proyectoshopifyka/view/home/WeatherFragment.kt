@@ -54,7 +54,7 @@ class WeatherFragment : Fragment() {
         }
         viewModel.fetchForecast("dee6bfa4fe7f459f97e15507252005")
 
-        // Observer de datos del ViewModel
+
         viewModel.forecastInfo.observe(viewLifecycleOwner) { forecastResponse ->
             val today = forecastResponse.current
 
@@ -63,7 +63,7 @@ class WeatherFragment : Fragment() {
             binding.textNumWind.text = "${today.windkph} km/h"
             binding.textNumTemperatura.text = "${today.feelslikec}°C"
             Glide.with(this)
-                .load("${today.condition.icon}")
+                .load("https:${today.condition.icon}")
                 .into(binding.imgClima)
 
             binding.textSaludo.text = "${getGreeting()} WASIM"
