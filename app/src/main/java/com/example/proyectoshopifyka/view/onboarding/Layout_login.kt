@@ -1,7 +1,6 @@
 package com.example.proyectoshopifyka.view.onboarding
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -43,10 +42,8 @@ class layout_login : Fragment() {
         val coarseLocationGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
 
         if (fineLocationGranted || coarseLocationGranted) {
-            // ✅ Permiso concedido, puedes obtener la ubicación
             getUserLocation()
         } else {
-            // ❌ Permiso denegado
             Toast.makeText(requireContext(), "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show()
         }
     }
@@ -119,20 +116,28 @@ class layout_login : Fragment() {
             communicator.showLoader(loaderState)
         }
         viewModel.sessionValid.observe(viewLifecycleOwner) { validSession ->
+            Log.d("layout_login", "Estado de sesión válida: $validSession")
             if (validSession) {
-                /*val intent = Intent(activity, HomeActivity::class.java)
-                startActivity(intent)
-                activity?.finish()*/
-                findNavController().navigate(R.id.action_layout_login_to_weatherFragment)
+                val bundle = Bundle().apply {
+                    putString("email", binding.etCorreo.text?.toString() ?: "Correo no disponible")
+                }
+                findNavController().navigate(R.id.action_layout_login_to_weatherFragment, bundle)
             } else {
-                Toast.makeText(activity, "Ingreso invalido", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Ingreso inválido", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     private fun requestLogin() {
-        viewModel.requestSignIn(binding.etCorreo.text.toString(),
-            binding.etContrasenia.text.toString())
+        val email = binding.etCorreo.text?.toString()?.trim() ?: ""
+        val password = binding.etContrasenia.text?.toString()?.trim() ?: ""
+
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(activity, "Correo y contraseña son obligatorios", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        viewModel.requestSignIn(email, password)
     }
 
     fun getUserLocation() {
@@ -163,6 +168,7 @@ class layout_login : Fragment() {
         return ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

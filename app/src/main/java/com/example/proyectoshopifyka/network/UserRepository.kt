@@ -25,7 +25,8 @@ class UserRepository @Inject constructor(
         result.user ?: throw Exception("No se pudo crear el usuario")
     }
 
-    suspend fun createUser(user:User): ResultWrapper<Void> = safeCall {
+    suspend fun createUser(user: User): ResultWrapper<Void> = safeCall {
+        if (user.id.isEmpty()) throw Exception("Error: userId está vacío")
         userCollection.document(user.id).set(user).await()
     }
 
