@@ -1,5 +1,6 @@
 package com.example.proyectoshopifyka.view.home.viewModel
 
+import android.icu.text.SimpleDateFormat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,7 @@ import com.example.proyectoshopifyka.model.WeatherResponse
 import com.example.proyectoshopifyka.network.WeatherRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 import javax.inject.Inject
 
@@ -27,6 +29,7 @@ class WeatherFragmentViewModel @Inject constructor(
 
     private val _weatherInfo = MutableLiveData<WeatherResponse>()
     val weatherInfo: LiveData<WeatherResponse> get() = _weatherInfo
+
 
 
     fun fetchWeather(apiKey: String) {
@@ -47,4 +50,21 @@ class WeatherFragmentViewModel @Inject constructor(
             }
         }
     }
+
+    fun formatLocalTime(localTime: String): String {
+        // Parsear la fecha original
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+        val date = inputFormat.parse(localTime) ?: return localTime // fallback si hay error
+
+        // Formatear el día de la semana
+        val dayFormat = SimpleDateFormat("EEEE", Locale.ENGLISH)
+        val day = dayFormat.format(date).uppercase()
+
+        // Formatear la hora
+        val timeFormat = SimpleDateFormat("h:mm a", Locale.ENGLISH)
+        val time = timeFormat.format(date).uppercase()
+
+        return "$day $time"
+    }
+
 }

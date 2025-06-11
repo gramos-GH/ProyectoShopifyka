@@ -77,4 +77,7 @@ dependencies {
     implementation(libs.hilt)
     kapt(libs.hilt.compiler)
 
+    //Kotlinx-datetime
+    implementation(libs.kotlinx.datetime)
+
 }

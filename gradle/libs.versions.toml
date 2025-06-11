@@ -28,6 +28,9 @@ safeargs = "2.9.0"
 hilt = "2.56.2"
 hilt-plugin = "2.48"
 
+kotlinxDatetime = "0.6.0"
+
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -56,6 +59,7 @@ coroutines-play = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-
 hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"}
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt"}
 
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

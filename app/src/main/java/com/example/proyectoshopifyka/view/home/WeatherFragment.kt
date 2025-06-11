@@ -15,7 +15,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class WeatherFragment : Fragment() {
 
     private val viewModel: WeatherFragmentViewModel by viewModels() // ✅ Corrección
-
     private var _binding: FragmentWeatherBinding? = null
     private val binding get() = _binding!!
 
@@ -35,12 +34,12 @@ class WeatherFragment : Fragment() {
         // Observador del clima
         viewModel.weatherInfo.observe(viewLifecycleOwner) { weather ->
             binding.textCiudad.text = weather.location.name
-
-
-
-            binding.textTemp.text = "${weather.current.tempC} °C"
+            binding.textTemp.text = "${weather.current.tempC} °C"   //Observador para la temperatura
             binding.textSaludo.text = weather.current.condition.text
-
+            // Llama a la función formatLocalTime desde el viewModel
+            val formattedTime = viewModel.formatLocalTime(weather.location.localtime)
+            binding.textSemana.text = formattedTime
+            //binding.textSemana.text = weather.location.localtime
             binding.textNumWind.text =  "${weather.current.windKph} km/h"
             binding.textNumTemperatura.text = "${weather.current.feelsLikeC}°C"
 
