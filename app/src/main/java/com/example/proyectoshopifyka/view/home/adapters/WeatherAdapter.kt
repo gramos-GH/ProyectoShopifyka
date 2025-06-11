@@ -2,7 +2,6 @@ package com.example.proyectoshopifyka.view.home.adapters
 
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
-import com.example.proyectoshopifyka.model.Weather
 import android.view.View
 import android.view.ViewGroup
 import com.example.proyectoshopifyka.R
@@ -10,13 +9,14 @@ import android.content.Context
 import android.util.Log
 import com.bumptech.glide.Glide
 import com.example.proyectoshopifyka.databinding.FragmentWeatherItemBinding
+import com.example.proyectoshopifyka.model.WeatherResponse
 
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class WeatherAdapter (
-    private val weathers: MutableList<Weather>,
+    private val weathers: MutableList<WeatherResponse>,
     private val onItemClick: (String) -> Unit
     ): RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
         private lateinit var context: Context
@@ -24,24 +24,23 @@ class WeatherAdapter (
         inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
             val binding = FragmentWeatherItemBinding.bind(view)
 
-            fun setUpUI(weather: Weather) {
-                binding.weatherTitleDayTextView.text = getDayOfWeek(weather.lastupdated)
-                binding.weatherCentiTextView.text = "${weather.tempc}°C"
-                binding.weatherNumTextView.text = "${weather.feelslikec}°C"
+            fun setUpUI(weather: WeatherResponse) {
+                binding.weatherCentiTextView.text = "${weather.current.tempC}°C"
+                binding.weatherNumTextView.text = "${weather.current.feelsLikeC}°C"
 
                 binding.itemContainerView.setOnClickListener {
-                    onItemClick(weather.condition.text)
+                    onItemClick(weather.current.condition.text)
                 }
 
                 Glide.with(itemView.context)
-                    .load("https:${weather.condition.icon}")
+                    .load("https:${weather.current.condition.icon}")
                     .placeholder(R.drawable.outline_downloading_24)
                     .error(R.drawable.outline_cloud_off_24)
                     .into(binding.weatherImageView)
             }
         }
 
-        fun add(weatherItems: List<Weather>) {
+        fun add(weatherItems: List<WeatherResponse>) {
             weathers.addAll(weatherItems)
             notifyDataSetChanged()
         }

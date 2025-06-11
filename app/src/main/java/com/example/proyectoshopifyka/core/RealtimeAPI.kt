@@ -1,6 +1,6 @@
 package com.example.proyectoshopifyka.core
 
-import com.example.proyectoshopifyka.model.Weather
+import com.example.proyectoshopifyka.model.WeatherResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -14,5 +14,5 @@ interface RealtimeAPI {
         @Query("q") location: String,
         @Query("aqi") aqi: String = "no",
         @Query("alerts") alerts: String = "no"
-    ): Response<Weather>
+    ): Response<WeatherResponse>
 }

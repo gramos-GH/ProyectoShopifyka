@@ -32,22 +32,20 @@ class WeatherFragment : Fragment() {
 
         // Observador del clima
         viewModel.weatherInfo.observe(viewLifecycleOwner) { weather ->
-            //binding.textCiudad.text = weather.
-            binding.textSemana.text = "${weather.lastupdated}"
-            binding.textTemp.text = "${weather.tempc} °C"
+            binding.textTemp.text = "${weather.current.tempC} °C"
             //binding.textSaludo.text = "${weather.}"
             //binding.textNumSunset.text = weather.lastupdated
-            binding.textNumWind.text =  "${weather.windkph} km/h"
-            binding.textNumTemperatura.text = "${weather.feelslikec}°C"
+            binding.textNumWind.text =  "${weather.current.windKph} km/h"
+            binding.textNumTemperatura.text = "${weather.current.feelsLikeC}°C"
 
             Glide.with(this)
-                .load("https:${weather.condition.icon}")
+                .load("https:${weather.current.condition.icon}")
                 .into(binding.imgClima)
 
         }
 
         // Llama a la API obteniendo la ubicación actual
-        viewModel.fetchWeather("b01d6b51a0bf40c282f15334252104")
+        viewModel.fetchWeather("0c7770c334f7483cade54127251904")
 
     }
 
