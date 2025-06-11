@@ -1,6 +1,7 @@
 package com.example.proyectoshopifyka.core
 
 import com.example.proyectoshopifyka.model.Weather
+import com.example.proyectoshopifyka.model.ForecastResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -11,8 +12,15 @@ interface RealtimeAPI {
     @GET("current.json")
     suspend fun getWeatherInfo(
         @Query("key") apiKey: String,
-        @Query("q") location: String,
-        @Query("aqi") aqi: String = "no",
-        @Query("alerts") alerts: String = "no"
+        @Query("q") location: String
     ): Response<Weather>
+
+
+    @GET("forecast.json")
+    suspend fun getForecastInfo(
+        @Query("key") apiKey: String,
+        @Query("q") location: String,
+        @Query("days") days: Int = 7 // <- 7 días de pronóstico
+    ): Response<ForecastResponse>
+
 }

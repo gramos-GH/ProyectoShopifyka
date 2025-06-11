@@ -1,6 +1,7 @@
 package com.example.proyectoshopifyka.view.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +9,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.proyectoshopifyka.databinding.FragmentWeatherBinding
+import com.example.proyectoshopifyka.model.Weather
 import com.example.proyectoshopifyka.view.home.viewModel.WeatherFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
+
+import android. widget. Toast
+import androidx.lifecycle.LiveData
+import androidx. recyclerview. widget. LinearLayoutManager
+import androidx. lifecycle. MutableLiveData
+import com. example. proyectoshopifyka. model. ForecastResponse
+import com. example. proyectoshopifyka. view. home. adapters. ForecastDayAdapter
 
 @AndroidEntryPoint
 class WeatherFragment : Fragment() {
@@ -19,6 +31,9 @@ class WeatherFragment : Fragment() {
     private var _binding: FragmentWeatherBinding? = null
     private val binding get() = _binding!!
 
+
+    private lateinit var forecastAdapter: ForecastDayAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,28 +42,54 @@ class WeatherFragment : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Observador del clima
-        viewModel.weatherInfo.observe(viewLifecycleOwner) { weather ->
-            //binding.textCiudad.text = weather.
-            binding.textSemana.text = "${weather.lastupdated}"
-            binding.textTemp.text = "${weather.tempc} °C"
-            //binding.textSaludo.text = "${weather.}"
-            //binding.textNumSunset.text = weather.lastupdated
-            binding.textNumWind.text =  "${weather.windkph} km/h"
-            binding.textNumTemperatura.text = "${weather.feelslikec}°C"
+        // Inicializar adapter con lista vacía
+        forecastAdapter = ForecastDayAdapter(emptyList())
+        binding.recyclerViewWeather.apply {
+            adapter = forecastAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+        viewModel.fetchForecast("dee6bfa4fe7f459f97e15507252005")
 
+        // Observer de datos del ViewModel
+        viewModel.forecastInfo.observe(viewLifecycleOwner) { forecastResponse ->
+            val today = forecastResponse.current
+
+
+            binding.textTemp.text = "${today.tempc} °C"
+            binding.textNumWind.text = "${today.windkph} km/h"
+            binding.textNumTemperatura.text = "${today.feelslikec}°C"
             Glide.with(this)
-                .load("https:${weather.condition.icon}")
+                .load("${today.condition.icon}")
                 .into(binding.imgClima)
 
+            binding.textSaludo.text = "${getGreeting()} WASIM"
+            binding.textSemana.text = formatLastUpdated(today.lastupdated)
+
+            forecastAdapter.updateData(forecastResponse.forecast.forecastday)
+
         }
+    }
 
-        // Llama a la API obteniendo la ubicación actual
-        viewModel.fetchWeather("b01d6b51a0bf40c282f15334252104")
 
+
+    private fun getGreeting(): String {
+        val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        return when (hour) {
+            in 0..11 -> "BUENOS DÍAS"
+            in 12..17 -> "BUENAS TARDES"
+            else -> "BUENAS NOCHES"
+        }
+    }
+
+    private fun formatLastUpdated(raw: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("EEEE, hh:mm a", Locale.getDefault())
+        val date = inputFormat.parse(raw)
+        return date?.let { outputFormat.format(it).uppercase(Locale.getDefault()) } ?: raw
     }
 
     override fun onDestroyView() {

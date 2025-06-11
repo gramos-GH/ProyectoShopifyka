@@ -73,4 +73,9 @@
         android:name="com.example.proyectoshopifyka.view.home.ProfileFragment"
         android:label="@string/profile_fragment"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/weatherItemFragment"
+        android:name="com.example.proyectoshopifyka.view.home.viewModel.WeatherItemFragment"
+        android:label="fragment_weather_item"
+        tools:layout="@layout/fragment_item_forecast_day" />
 </navigation>
