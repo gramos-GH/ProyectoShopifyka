@@ -22,6 +22,7 @@ import androidx. recyclerview. widget. LinearLayoutManager
 import androidx. lifecycle. MutableLiveData
 import com. example. proyectoshopifyka. model. ForecastResponse
 import com. example. proyectoshopifyka. view. home. adapters. ForecastDayAdapter
+import java.time.LocalTime
 
 @AndroidEntryPoint
 class WeatherFragment : Fragment() {
@@ -58,7 +59,6 @@ class WeatherFragment : Fragment() {
         viewModel.forecastInfo.observe(viewLifecycleOwner) { forecastResponse ->
             val today = forecastResponse.current
 
-
             binding.textTemp.text = "${today.tempc} °C"
             binding.textNumWind.text = "${today.windkph} km/h"
             binding.textNumTemperatura.text = "${today.feelslikec}°C"
@@ -69,6 +69,7 @@ class WeatherFragment : Fragment() {
             binding.textSaludo.text = "${getGreeting()} WASIM"
             binding.textSemana.text = formatLastUpdated(today.lastupdated)
 
+            //Log.d("Fragment", "Lista de días antes de actualizar el RecyclerView: ${forecastResponse.forecast.forecastday}")
             forecastAdapter.updateData(forecastResponse.forecast.forecastday)
 
         }
@@ -77,7 +78,8 @@ class WeatherFragment : Fragment() {
 
 
     private fun getGreeting(): String {
-        val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
         return when (hour) {
             in 0..11 -> "BUENOS DÍAS"
             in 12..17 -> "BUENAS TARDES"
