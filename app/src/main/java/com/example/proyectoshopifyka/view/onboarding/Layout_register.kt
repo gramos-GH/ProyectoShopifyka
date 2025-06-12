@@ -1,6 +1,5 @@
 package com.example.proyectoshopifyka.view.onboarding
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,9 +17,11 @@ import com.example.proyectoshopifyka.viewModel.SignUpViewModel
 import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class layout_register : Fragment() {
-    // TODO: Rename and change types of parameters
+
     private var _binding: FragmentLayoutRegisterBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<SignUpViewModel>()
@@ -31,6 +32,7 @@ class layout_register : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        communicator = requireActivity() as HomeActivity
         _binding = FragmentLayoutRegisterBinding.inflate(inflater, container, false)
 
         val activity = requireActivity()
@@ -43,6 +45,7 @@ class layout_register : Fragment() {
         } else {
             Toast.makeText(context, "La actividad no es la correcta", Toast.LENGTH_SHORT).show()
         }
+
         return binding.root
     }
 
@@ -76,13 +79,22 @@ class layout_register : Fragment() {
         }
 
         viewModel.registrationSuccess.observe(viewLifecycleOwner) { success ->
-            Log.d("layout_register", "Estado de registro exitoso")
+            Log.d("layout_register", "Estado de registro exitoso: $success")
             if (success) {
-                findNavController().navigate(R.id.action_layout_register_to_secondFragment)
+                val userId = viewModel.isUserCreted.value ?: run {
+                    Toast.makeText(activity, "Error: No se obtuvo el ID de usuario", Toast.LENGTH_SHORT).show()
+                    return@observe
+                }
+
+                val bundle = Bundle().apply {
+                    putString("userId", userId)
+                }
+                findNavController().navigate(R.id.action_layout_register_to_secondFragment, bundle)
             } else {
                 Toast.makeText(activity, "Error en el registro, intente nuevamente", Toast.LENGTH_SHORT).show()
             }
         }
+
         binding.etContrasenia.addTextChangedListener {
             if (binding.etContrasenia.text.toString().isEmpty()) {
                 binding.tilContrasenia.error = "Por favor introduce una contraseña"

@@ -3,8 +3,19 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+
+    <string name="home_fragment">Home Fragment</string>
+    <string name="forecast_fragment">Forecast Fragment</string>
+    <string name="profile_fragment">Profile Fragment</string>
+
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+
+    <!-- Strings used for campos for fragments-->
+    <string name="name">Name</string>
+    <string name="apellido">Apellido</string>
+    <string name="user">User</string>
+    <string name="date">Date</string>
 
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris

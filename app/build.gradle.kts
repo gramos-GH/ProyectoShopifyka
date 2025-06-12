@@ -1,7 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("com.google.gms.google-services")
+    alias(libs.plugins.google.services.plugin)
+    alias(libs.plugins.safeargs)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.kapt)
 }
 
 android {
@@ -49,6 +52,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // Lottie
     implementation(libs.lottie)
 
     // Firebase dependencies
@@ -60,4 +65,19 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.gson)
     implementation(libs.retrofit.converter)
+
+    // Glide
+    implementation(libs.glide)
+
+    // Location
+    implementation(libs.location)
+    implementation(libs.coroutines.play)
+
+    // Dagger hilt
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
+
+    //kotlinx-datetime
+    implementation(libs.kotlinx.datetime)
+
 }

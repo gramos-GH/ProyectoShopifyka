@@ -5,12 +5,15 @@ import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.proyectoshopifyka.R
 import com.example.proyectoshopifyka.databinding.ActivityOnboardingBinding
 import com.example.proyectoshopifyka.utils.FragmentComunicator
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class OnboardingActivity : AppCompatActivity(), FragmentComunicator {

@@ -12,6 +12,7 @@ import kotlinx.coroutines.tasks.await
 
 class SignInViewModel: ViewModel() {
 
+
     private val _loaderState = MutableLiveData<Boolean>()
     val loaderState: LiveData<Boolean>
         get() = _loaderState
@@ -23,13 +24,18 @@ class SignInViewModel: ViewModel() {
     fun requestSignIn(email: String, password: String) {
         _loaderState.value = true
         viewModelScope.launch {
+            try{
             val result = firebase.signInWithEmailAndPassword(email, password).await()
             _loaderState.value = false
-            result.user?.let {
-                _sessionValid.value = true
-            } ?: run {
-                Log.i("Firebase", "Se ha generado un problema")
+            _sessionValid.value = result.user != null
+
+            } catch (e: Exception) {
+            _sessionValid.value = false
+            _loaderState.value = false
+            Log.i("Firebase", "Se ha generado un problema")
             }
         }
     }
+
+
 }

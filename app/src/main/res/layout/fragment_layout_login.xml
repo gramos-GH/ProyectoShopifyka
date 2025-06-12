@@ -8,7 +8,7 @@
     tools:context=".view.home.HomeActivity">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_contrasenia"
+        android:id="@+id/til_correo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -23,13 +23,13 @@
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_contrasenia"
+            android:id="@+id/et_correo"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/til_correo"
+        android:id="@+id/til_contrasenia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -39,13 +39,13 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_contrasenia"
+        app:layout_constraintTop_toBottomOf="@+id/til_correo"
         app:endIconMode="password_toggle"
         app:startIconDrawable="@drawable/baseline_https_24"
         tools:ignore="MissingConstraints">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_correo"
+            android:id="@+id/et_contrasenia"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="textPassword"/>
@@ -79,10 +79,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="olvidaste tu contraseña? Restablecer"
+        android:text="¿Olvidaste tu contraseña? Restablecer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_correo">
+        app:layout_constraintTop_toBottomOf="@+id/til_contrasenia">
 
     </TextView>
 
@@ -90,7 +90,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No tienes cuenta? Registrate"
+        android:text="¿No tienes cuenta? Registrate"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
