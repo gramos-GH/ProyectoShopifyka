@@ -83,7 +83,7 @@ class WeatherFragment : Fragment() {
         return when (hour) {
             in 0..11 -> "BUENOS DÍAS"
             in 12..17 -> "BUENAS TARDES"
-            else -> "BUENAS NOCHES"
+            else -> "BUENAS TARDES"
         }
     }
 

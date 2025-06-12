@@ -60,7 +60,7 @@ class layout_login : Fragment() {
     }
 
     private fun setupView() {
-        //actions
+
         getUserLocation()
 
         binding.textView2.setOnClickListener {
@@ -70,13 +70,16 @@ class layout_login : Fragment() {
             findNavController().navigate(R.id.action_layout_login_to_restorePassword)
         }
 
-        //Validations information user
         binding.filledButton.setOnClickListener {
+
+
             if (validateInputs()) {
-                requestLogin()
+               requestLogin()
             } else {
                 Toast.makeText(activity, "Correo y contraseña son obligatorios", Toast.LENGTH_SHORT).show()
             }
+
+
         }
 
         binding.etCorreo.addTextChangedListener {
@@ -111,6 +114,7 @@ class layout_login : Fragment() {
     }
 
     private fun setupObservers() {
+
         viewModel.loaderState.observe(viewLifecycleOwner) { loaderState ->
             communicator.showLoader(loaderState)
         }
@@ -173,4 +177,6 @@ class layout_login : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

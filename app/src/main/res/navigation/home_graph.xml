@@ -103,4 +103,8 @@
         android:id="@+id/weatherItemFragment"
         android:label="fragment_weather_item"
         tools:layout="@layout/fragment_item_forecast_day" />
+    <fragment
+        android:id="@+id/navigation_detalle"
+        android:name="com.example.proyectoshopifyka.view.home.DetalleClimaFragment"
+        android:label="DetalleClimaFragment" />
 </navigation>

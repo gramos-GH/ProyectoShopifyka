@@ -6,9 +6,9 @@
         android:title="Home"/>
 
     <item
-        android:id="@+id/navigation_forecast"
+        android:id="@+id/navigation_detalle"
         android:icon="@drawable/cloudy_day_icon"
-        android:title="Forecast"/>
+        android:title="Detalle"/>
 
     <item
         android:id="@+id/navigation_profile"

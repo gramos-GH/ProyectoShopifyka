@@ -12,6 +12,7 @@ import kotlinx.coroutines.tasks.await
 
 class SignInViewModel: ViewModel() {
 
+
     private val _loaderState = MutableLiveData<Boolean>()
     val loaderState: LiveData<Boolean>
         get() = _loaderState
@@ -35,4 +36,6 @@ class SignInViewModel: ViewModel() {
             }
         }
     }
+
+
 }

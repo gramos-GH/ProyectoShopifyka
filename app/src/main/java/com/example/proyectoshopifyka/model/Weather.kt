@@ -8,6 +8,7 @@ data class Weather(
     @SerializedName("current") val current: Current
 )
 
+
 data class Location(
     @SerializedName("name") val name: String,
     @SerializedName("localtime") val localtime: String

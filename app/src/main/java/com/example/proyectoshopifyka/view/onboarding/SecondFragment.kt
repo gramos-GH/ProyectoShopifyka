@@ -73,7 +73,7 @@ class SecondFragment : Fragment() {
             val day = calendario.get(Calendar.DAY_OF_MONTH)
 
             val datePicker = DatePickerDialog(requireContext(), { _, year, month, dayOfMonth ->
-                // Ajusta el mes (+1 porque empieza en 0)
+
                 val fechaSeleccionada = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
                 binding.etFecha.setText(fechaSeleccionada)
             }, year, month, day)
