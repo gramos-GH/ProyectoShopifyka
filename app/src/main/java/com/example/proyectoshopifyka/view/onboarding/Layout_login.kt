@@ -1,6 +1,7 @@
 package com.example.proyectoshopifyka.view.onboarding
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +25,7 @@ import com.example.proyectoshopifyka.view.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import androidx.appcompat.app.AlertDialog
 
 @AndroidEntryPoint
 class layout_login : Fragment() {
@@ -32,7 +34,6 @@ class layout_login : Fragment() {
     private var _binding: FragmentLayoutLoginBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<SignInViewModel>()
-    var isValid: Boolean = false
     private lateinit var communicator: FragmentComunicator
 
     private val requestPermissionLauncher = registerForActivityResult(
@@ -42,8 +43,10 @@ class layout_login : Fragment() {
         val coarseLocationGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
 
         if (fineLocationGranted || coarseLocationGranted) {
+            // ✅ Permiso concedido, puedes obtener la ubicación
             getUserLocation()
         } else {
+            // ❌ Permiso denegado
             Toast.makeText(requireContext(), "Permiso de ubicación denegado", Toast.LENGTH_SHORT).show()
         }
     }
@@ -52,17 +55,15 @@ class layout_login : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        communicator = requireActivity() as HomeActivity
+        communicator = requireActivity() as FragmentComunicator
         _binding = FragmentLayoutLoginBinding.inflate(inflater, container, false)
         setupView()
         setupObservers()
         return binding.root
-
     }
 
     private fun setupView() {
-        //actions
-        getUserLocation()
+        getUserLocation() // Actions
 
         binding.textView2.setOnClickListener {
             findNavController().navigate(R.id.action_layout_login_to_layout_register)
@@ -71,31 +72,28 @@ class layout_login : Fragment() {
             findNavController().navigate(R.id.action_layout_login_to_restorePassword)
         }
 
-        //Validations information user
         binding.filledButton.setOnClickListener {
             if (validateInputs()) {
                 requestLogin()
             } else {
-                Toast.makeText(activity, "Correo y contraseña son obligatorios", Toast.LENGTH_SHORT).show()
+                val message = if (binding.etCorreo.text.isNullOrEmpty() && binding.etContrasenia.text.isNullOrEmpty()) {
+                    "Por favor, ingresa tu correo y contraseña."
+                } else if (binding.etCorreo.text.isNullOrEmpty()) {
+                    "Por favor, ingresa tu correo."
+                } else {
+                    "Por favor, ingresa tu contraseña."
+                }
+                mostrarErrorDialog("Campos obligatorios", message)
             }
         }
 
+        // Limpiar errores del TextInputLayout cuando el usuario empieza a escribir
         binding.etCorreo.addTextChangedListener {
-            if (binding.etCorreo.text.toString().isEmpty()) {
-                binding.tilCorreo.error = "Por favor introduce un correo "
-                isValid = false
-            } else {
-                isValid = true
-            }
+            binding.tilCorreo.error = null // Limpia el error cuando se edita
         }
 
         binding.etContrasenia.addTextChangedListener {
-            if (binding.etContrasenia.text.toString().isEmpty()) {
-                binding.tilContrasenia.error = "Por favor introduce una contraseña"
-                isValid = false
-            } else {
-                isValid = true
-            }
+            binding.tilContrasenia.error = null // Limpia el error cuando se edita
         }
     }
 
@@ -103,12 +101,10 @@ class layout_login : Fragment() {
         val emailNotEmpty = binding.etCorreo.text.toString().isNotEmpty()
         val passwordNotEmpty = binding.etContrasenia.text.toString().isNotEmpty()
 
-        isValid = emailNotEmpty && passwordNotEmpty
+        binding.tilCorreo.error = if (!emailNotEmpty) "Introduce un correo" else null
+        binding.tilContrasenia.error = if (!passwordNotEmpty) "Introduce tu contraseña" else null
 
-        binding.etCorreo.error = if (!emailNotEmpty) "Introduce un correo" else null
-        binding.etContrasenia.error = if (!passwordNotEmpty) "Introduce tu contraseña" else null
-
-        return isValid
+        return emailNotEmpty && passwordNotEmpty
     }
 
     private fun setupObservers() {
@@ -116,28 +112,17 @@ class layout_login : Fragment() {
             communicator.showLoader(loaderState)
         }
         viewModel.sessionValid.observe(viewLifecycleOwner) { validSession ->
-            Log.d("layout_login", "Estado de sesión válida: $validSession")
             if (validSession) {
-                val bundle = Bundle().apply {
-                    putString("email", binding.etCorreo.text?.toString() ?: "Correo no disponible")
-                }
-                findNavController().navigate(R.id.action_layout_login_to_weatherFragment, bundle)
+                (activity as? HomeActivity)?.loginSuccess()
+                findNavController().navigate(R.id.action_layout_login_to_weatherFragment)
             } else {
-                Toast.makeText(activity, "Ingreso inválido", Toast.LENGTH_SHORT).show()
+                mostrarErrorDialog("Credenciales incorrectas", "El usuario o la contraseña no coinciden.")
             }
         }
     }
 
     private fun requestLogin() {
-        val email = binding.etCorreo.text?.toString()?.trim() ?: ""
-        val password = binding.etContrasenia.text?.toString()?.trim() ?: ""
-
-        if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(activity, "Correo y contraseña son obligatorios", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        viewModel.requestSignIn(email, password)
+        viewModel.requestSignIn(binding.etCorreo.text.toString(), binding.etContrasenia.text.toString())
     }
 
     fun getUserLocation() {
@@ -169,6 +154,21 @@ class layout_login : Fragment() {
                 ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
 
+    /**
+     * Muestra un AlertDialog con un título y un mensaje de error.
+     */
+    private fun mostrarErrorDialog(titulo: String, mensaje: String) {
+        context?.let {
+            AlertDialog.Builder(it)
+                .setTitle(titulo)
+                .setMessage(mensaje)
+                .setPositiveButton("Aceptar") { dialog, _ ->
+                    dialog.dismiss() // Cierra el diálogo al presionar Aceptar
+                }
+                .create()
+                .show()
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
